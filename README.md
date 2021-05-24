@@ -1,6 +1,6 @@
 # CF_meet-app
 
-# FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS
+## FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS
 
 ### As a user I want to toogle details of an event, so I can have a better overview or get more information about events respectively.
 
@@ -20,7 +20,7 @@ WHEN user clicks button with text “hide details”
 THEN user sees doesn’t see details for the particular event
 
 
-# FEATURE 3: SPECIFY NUMBER OF EVENTS
+## FEATURE 3: SPECIFY NUMBER OF EVENTS
 
 ### As a user I’d like to specify the events to be displayed to I’m not overwhelmed with events that aren’t relevant.
 
@@ -35,7 +35,7 @@ GIVEN the main page is open
 WHEN user enters number “5” in textbook “Number of Events”
 THEN user sees a list of “5” events
 
-# FEATURE 4: USE THE APP WHEN OFFLINE
+## FEATURE 4: USE THE APP WHEN OFFLINE
 
 ### As a user I want to view my last search offline, so I can check upcoming events where there is low or no internet connection.
 
@@ -53,7 +53,7 @@ WHEN user opens app
 AND user searches for events in “Hamburg”
 THEN user sees an error message “No internet connection.”
 
-# FEATURE 5: DATA VISUALIZATION
+## FEATURE 5: DATA VISUALIZATION
 
 ### As a user I want to see data visualization about events in a given city so I have a better overview over what’s up.
 
