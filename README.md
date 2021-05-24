@@ -1,5 +1,33 @@
 # CF_meet-app
 
+# Meet Application
+
+This is a serverless PWA build with React that uses the Google Calendar API to display events for a given city users can sepcify.
+
+### Prerequisites
+
+You need to have node installed and a package manager like npm.
+
+### Installing
+
+Clone project by navigation to the directory where you would like to clone the project.
+
+```
+git clone https://github.com/julianegoe/CF_myflix_client.git
+```
+
+Then install all dependencies running
+
+```
+npm install
+```
+
+To build and deploy the app to gh-pages run
+
+```
+npm run deplpy
+```
+
 ## FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS
 
 ### As a user I want to toogle details of an event, so I can have a better overview or get more information about events respectively.
