@@ -75,13 +75,13 @@ THEN user sees doesn’t see details for the particular event
 
 **Scenario 1: When user hasn’t specified a number, 32 is the default number**  
 GIVEN the main page is open  
-WHEN user hasn’t entered a number in textbook “Number of Events”  
+WHEN user hasn’t entered a number in textbox “Number of Events”  
 THEN user sees the default value 32  
 
 
 **Scenario 2: User can change the number of events they want to see**  
 GIVEN the main page is open  
-WHEN user enters number “5” in textbook “Number of Events”  
+WHEN user enters number “5” in textbox “Number of Events”  
 THEN user sees a list of “5” events  
 
 ## FEATURE 4: USE THE APP WHEN OFFLINE
