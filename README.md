@@ -13,7 +13,7 @@ You need to have node installed and a package manager like npm.
 Clone project by navigation to the directory where you would like to clone the project.
 
 ```
-git clone https://github.com/julianegoe/CF_myflix_client.git
+git clone https://github.com/julianegoe/CF_meet-app.git
 ```
 
 Then install all dependencies running
