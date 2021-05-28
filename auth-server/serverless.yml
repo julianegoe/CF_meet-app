@@ -67,12 +67,15 @@ provider:
 functions:
   getAuthUrl:
     handler: handler.getAuthUrl
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
     events:
       - httpApi:
           path: /api/get-auth-url
+          method: get
+  getAccessToken:
+    handler: handler.getAccessToken
+    events:
+      - httpApi:
+          path: /api/token/{code}
           method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
