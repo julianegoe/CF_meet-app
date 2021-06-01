@@ -65,14 +65,14 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  getAuthUrl:
-    handler: handler.getAuthUrl
+  getAuthUrlNoLib:
+    handler: handler.getAuthUrlNoLib
     events:
       - httpApi:
           path: /api/get-auth-url
           method: get
-  getAccessToken:
-    handler: handler.getAccessToken
+  getAccessTokenNoLib:
+    handler: handler.getAccessTokenNoLib
     events:
       - httpApi:
           path: /api/token/{code}

@@ -71,16 +71,16 @@
         }
       }
     },
-    "GetAuthUrlLogGroup": {
+    "GetAuthUrlNoLibLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/auth-server-dev-getAuthUrl"
+        "LogGroupName": "/aws/lambda/auth-server-dev-getAuthUrlNoLib"
       }
     },
-    "GetAccessTokenLogGroup": {
+    "GetAccessTokenNoLibLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/auth-server-dev-getAccessToken"
+        "LogGroupName": "/aws/lambda/auth-server-dev-getAccessTokenNoLib"
       }
     },
     "IamRoleLambdaExecution": {
@@ -160,18 +160,18 @@
         }
       }
     },
-    "GetAuthUrlLambdaFunction": {
+    "GetAuthUrlNoLibLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/auth-server/dev/1622202063806-2021-05-28T11:41:03.806Z/auth-server.zip"
+          "S3Key": "serverless/auth-server/dev/1622574177384-2021-06-01T19:02:57.384Z/auth-server.zip"
         },
-        "Handler": "handler.getAuthUrl",
+        "Handler": "handler.getAuthUrlNoLib",
         "Runtime": "nodejs12.x",
-        "FunctionName": "auth-server-dev-getAuthUrl",
+        "FunctionName": "auth-server-dev-getAuthUrlNoLib",
         "MemorySize": 1024,
         "Timeout": 29,
         "Environment": {
@@ -190,21 +190,21 @@
         }
       },
       "DependsOn": [
-        "GetAuthUrlLogGroup"
+        "GetAuthUrlNoLibLogGroup"
       ]
     },
-    "GetAccessTokenLambdaFunction": {
+    "GetAccessTokenNoLibLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/auth-server/dev/1622202063806-2021-05-28T11:41:03.806Z/auth-server.zip"
+          "S3Key": "serverless/auth-server/dev/1622574177384-2021-06-01T19:02:57.384Z/auth-server.zip"
         },
-        "Handler": "handler.getAccessToken",
+        "Handler": "handler.getAccessTokenNoLib",
         "Runtime": "nodejs12.x",
-        "FunctionName": "auth-server-dev-getAccessToken",
+        "FunctionName": "auth-server-dev-getAccessTokenNoLib",
         "MemorySize": 1024,
         "Timeout": 29,
         "Environment": {
@@ -223,27 +223,27 @@
         }
       },
       "DependsOn": [
-        "GetAccessTokenLogGroup"
+        "GetAccessTokenNoLibLogGroup"
       ]
     },
-    "GetAuthUrlLambdaVersionO2iIxgvoxiePvBzduyUwFoX7h0mZbhI55epb2sNKkg": {
+    "GetAuthUrlNoLibLambdaVersionbrRHoACuWDkokOQN4KsxcuqEG8cANcATcz9JqRMk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetAuthUrlLambdaFunction"
+          "Ref": "GetAuthUrlNoLibLambdaFunction"
         },
-        "CodeSha256": "7rancLZ+bLH1xFnqOOOUxK9Y52sczfvBlgyIxExHtmk="
+        "CodeSha256": "UpJdjPUO1Hty/0EfgLEdBSfzMxTxOpdrMn20g3nKyS8="
       }
     },
-    "GetAccessTokenLambdaVersionpfg1dT3HwwXlt1b7O4HAgiusUbi3ZfRg0T3Nocgn8": {
+    "GetAccessTokenNoLibLambdaVersionXm7EUaoTZ5GXaTO5Yd1jBOF1xPP34xjki4HxNjP7mQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetAccessTokenLambdaFunction"
+          "Ref": "GetAccessTokenNoLibLambdaFunction"
         },
-        "CodeSha256": "7rancLZ+bLH1xFnqOOOUxK9Y52sczfvBlgyIxExHtmk="
+        "CodeSha256": "UpJdjPUO1Hty/0EfgLEdBSfzMxTxOpdrMn20g3nKyS8="
       }
     },
     "HttpApi": {
@@ -266,12 +266,12 @@
         }
       }
     },
-    "GetAuthUrlLambdaPermissionHttpApi": {
+    "GetAuthUrlNoLibLambdaPermissionHttpApi": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetAuthUrlLambdaFunction",
+            "GetAuthUrlNoLibLambdaFunction",
             "Arn"
           ]
         },
@@ -303,7 +303,7 @@
         }
       }
     },
-    "HttpApiIntegrationGetAuthUrl": {
+    "HttpApiIntegrationGetAuthUrlNoLib": {
       "Type": "AWS::ApiGatewayV2::Integration",
       "Properties": {
         "ApiId": {
@@ -312,7 +312,7 @@
         "IntegrationType": "AWS_PROXY",
         "IntegrationUri": {
           "Fn::GetAtt": [
-            "GetAuthUrlLambdaFunction",
+            "GetAuthUrlNoLibLambdaFunction",
             "Arn"
           ]
         },
@@ -333,20 +333,20 @@
             [
               "integrations",
               {
-                "Ref": "HttpApiIntegrationGetAuthUrl"
+                "Ref": "HttpApiIntegrationGetAuthUrlNoLib"
               }
             ]
           ]
         }
       },
-      "DependsOn": "HttpApiIntegrationGetAuthUrl"
+      "DependsOn": "HttpApiIntegrationGetAuthUrlNoLib"
     },
-    "GetAccessTokenLambdaPermissionHttpApi": {
+    "GetAccessTokenNoLibLambdaPermissionHttpApi": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetAccessTokenLambdaFunction",
+            "GetAccessTokenNoLibLambdaFunction",
             "Arn"
           ]
         },
@@ -378,7 +378,7 @@
         }
       }
     },
-    "HttpApiIntegrationGetAccessToken": {
+    "HttpApiIntegrationGetAccessTokenNoLib": {
       "Type": "AWS::ApiGatewayV2::Integration",
       "Properties": {
         "ApiId": {
@@ -387,7 +387,7 @@
         "IntegrationType": "AWS_PROXY",
         "IntegrationUri": {
           "Fn::GetAtt": [
-            "GetAccessTokenLambdaFunction",
+            "GetAccessTokenNoLibLambdaFunction",
             "Arn"
           ]
         },
@@ -408,13 +408,13 @@
             [
               "integrations",
               {
-                "Ref": "HttpApiIntegrationGetAccessToken"
+                "Ref": "HttpApiIntegrationGetAccessTokenNoLib"
               }
             ]
           ]
         }
       },
-      "DependsOn": "HttpApiIntegrationGetAccessToken"
+      "DependsOn": "HttpApiIntegrationGetAccessTokenNoLib"
     }
   },
   "Outputs": {
@@ -426,22 +426,22 @@
         "Name": "sls-auth-server-dev-ServerlessDeploymentBucketName"
       }
     },
-    "GetAuthUrlLambdaFunctionQualifiedArn": {
+    "GetAuthUrlNoLibLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAuthUrlLambdaVersionO2iIxgvoxiePvBzduyUwFoX7h0mZbhI55epb2sNKkg"
+        "Ref": "GetAuthUrlNoLibLambdaVersionbrRHoACuWDkokOQN4KsxcuqEG8cANcATcz9JqRMk"
       },
       "Export": {
-        "Name": "sls-auth-server-dev-GetAuthUrlLambdaFunctionQualifiedArn"
+        "Name": "sls-auth-server-dev-GetAuthUrlNoLibLambdaFunctionQualifiedArn"
       }
     },
-    "GetAccessTokenLambdaFunctionQualifiedArn": {
+    "GetAccessTokenNoLibLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAccessTokenLambdaVersionpfg1dT3HwwXlt1b7O4HAgiusUbi3ZfRg0T3Nocgn8"
+        "Ref": "GetAccessTokenNoLibLambdaVersionXm7EUaoTZ5GXaTO5Yd1jBOF1xPP34xjki4HxNjP7mQ"
       },
       "Export": {
-        "Name": "sls-auth-server-dev-GetAccessTokenLambdaFunctionQualifiedArn"
+        "Name": "sls-auth-server-dev-GetAccessTokenNoLibLambdaFunctionQualifiedArn"
       }
     },
     "HttpApiId": {
