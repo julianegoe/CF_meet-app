@@ -29,8 +29,9 @@ provider:
     PROJECT_ID: ${file(config.json):PROJECT_ID}
     CALENDAR_ID: ${file(config.json):CALENDAR_ID}
   region: eu-central-1
-  timeout: 29
+  timeout: 60
   lambdaHashingVersion: 20201221
+
 
 # you can overwrite defaults here
 #  stage: dev
@@ -71,11 +72,17 @@ functions:
       - httpApi:
           path: /api/get-auth-url
           method: get
-  getAccessToken:
-    handler: handler.getAccessToken
+  getAccess:
+    handler: handler.getAccess
     events:
       - httpApi:
           path: /api/token/{code}
+          method: get
+  getCalendarEvents:
+    handler: handler.getCalendarEvents
+    events:
+      - httpApi:
+          path: /api/get-events/{access_token}
           method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
@@ -95,7 +102,7 @@ functions:
 #            detail:
 #              state:
 #                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
+#      - cloudwatchLog: '/api/token/{code}'
 #      - cognitoUserPool:
 #          pool: MyUserPool
 #          trigger: PreSignUp

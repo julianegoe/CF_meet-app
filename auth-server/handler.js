@@ -1,9 +1,8 @@
 const {google} = require('googleapis');
 const OAuth2 = google.auth.OAuth2;
-/* const calendar = google.calendar("v3"); */
+const calendar = google.calendar("v3");
 
-/* const uri = "https://accounts.google.com/o/oauth2/auth?client_id=856026410494-63hkfdrkcoqmrqn79lg2b5e71rvui4q1.apps.googleusercontent.com&response_type=token&redirect_uri=https://julianegoe.github.io/CF_meet-app/&scope=https://www.googleapis.com/auth/calendar.readonly"
- */
+
 const credentials = {
   client_id : process.env.CLIENT_ID,
   project_id: process.env.PROJECT,
@@ -16,16 +15,17 @@ const credentials = {
   javascript_origins:["https://julianegoe.github.io", "http://localhost:3000"]
 };
 
-const {client_id, client_secret, redirect_uris} = credentials;
+const {client_id, client_secret, redirect_uris, calendar_id} = credentials;
+
+const oauth2Client = new OAuth2(
+  client_id,
+  client_secret,
+  redirect_uris
+);
 
 
 module.exports.getAuthUrl = async () => {
 
-  const oauth2Client = new OAuth2(
-    client_id,
-    client_secret,
-    redirect_uris
-  );
 
   const authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
@@ -39,16 +39,16 @@ module.exports.getAuthUrl = async () => {
   }
 };
 
-module.exports.getAccessToken = async (event) => {
-  console.log(event);
+module.exports.getAccess = async (event) => {
   const oauth2Client = new OAuth2(
     client_id,
     client_secret,
     redirect_uris
   );
+  
   const code = decodeURIComponent(`${event.pathParameters.code}`);
-  /* const code = "4%2F0AY0e-g44-jYS9SaUYvTMftoIn-Re-7svI9v9puu69-xNFuesBwib63k_PDtP4PCjaw-6PQ" */
-  return new Promise((resolve, reject) => {
+/*    const code = decodeURIComponent('4%2F0AY0e-g4dF2NXDWm2s5cGl_BOpqSjZjF9R9sLNT7NHA5A_0m2xsR_ivWfcCRoa9xzZZiLNw') 
+ */   return new Promise((resolve, reject) => {
     /**
      *  Exchange authorization code for access token with a “callback” after the exchange,
      *  The callback in this case is an arrow function with the results as parameters: “err” and “token.”
@@ -65,7 +65,12 @@ module.exports.getAccessToken = async (event) => {
       // Respond with OAuth token
       return {
         statusCode: 200,
-        body: JSON.stringify(token),
+        headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET"
+      },
+        body: JSON.stringify(token)
       };
     })
     .catch((err) => {
@@ -73,9 +78,46 @@ module.exports.getAccessToken = async (event) => {
       console.error(err);
       return {
         statusCode: 500,
+        headers: {"Access-Control-Allow-Origin": "*"},
         body: JSON.stringify(err),
       };
     });
+};
+
+module.exports.getCalendarEvents = async (event) => {
+
+  const oauth2Client = new OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris
+  );
+
+  const access_token = event.pathParameters.code;
+  oauth2Client.setCredentials({ access_token })
+
+  try {
+    const results = await calendar.events.list(
+      {
+        calendarId: calendar_id,
+        auth: oauth2Client,
+        timeMin: new Date().toISOString(),
+        singleEvents: true,
+        orderBy: "startTime",
+      }).promise()
+
+      return {
+        statusCode: 200,
+        headers: {"Access-Control-Allow-Origin": "*"}, 
+        body: JSON.stringify({ events: results.data.items }),
+      }
+  } catch(err) {
+    return {
+      statusCode: 500,
+      headers: {"Access-Control-Allow-Origin": "*"},
+      body: JSON.stringify(err),
+    }
+  }
+
 }
 
 
