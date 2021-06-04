@@ -23,19 +23,12 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
-  environment:
-    CLIENT_ID: ${file(config.json):CLIENT_ID}
-    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
-    PROJECT_ID: ${file(config.json):PROJECT_ID}
-    CALENDAR_ID: ${file(config.json):CALENDAR_ID}
-  region: eu-central-1
-  timeout: 60
   lambdaHashingVersion: 20201221
-
 
 # you can overwrite defaults here
 #  stage: dev
-#  region: us-east-1
+  region: eu-central-1
+  timeout: 60
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -54,8 +47,11 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  environment:
+    CLIENT_ID: ${file(config.json):CLIENT_ID}
+    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
+    PROJECT_ID: ${file(config.json):PROJECT_ID}
+    CALENDAR_ID: ${file(config.json):CALENDAR_ID}
 
 # you can add packaging information here
 #package:
@@ -66,24 +62,31 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  getAuthUrl:
-    handler: handler.getAuthUrl
+  getAuthURL:
+    handler: handler.getAuthURL
     events:
-      - httpApi:
-          path: /api/get-auth-url
+      - http:
+          path: api/get-auth-url
           method: get
   getAccess:
     handler: handler.getAccess
     events:
-      - httpApi:
-          path: /api/token/{code}
+      - http:
+          path: api/token/{code}
           method: get
   getCalendarEvents:
     handler: handler.getCalendarEvents
     events:
-      - httpApi:
-          path: /api/get-events/{access_token}
+      - http:
+          path: api/get-events/{access_token}
           method: get
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    events:
+#      - httpApi:
+#          path: /users/create
+#          method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
@@ -102,7 +105,7 @@ functions:
 #            detail:
 #              state:
 #                - pending
-#      - cloudwatchLog: '/api/token/{code}'
+#      - cloudwatchLog: '/aws/lambda/hello'
 #      - cognitoUserPool:
 #          pool: MyUserPool
 #          trigger: PreSignUp
