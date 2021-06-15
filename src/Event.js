@@ -30,6 +30,7 @@ export default class Event extends Component {
 
             <button className="details-btn" onClick={() => {this.handleClick()}}>{this.state.buttonLabel}</button>
         </div>
+       
     )
  }
     
