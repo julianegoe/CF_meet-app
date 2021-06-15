@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import EventList from '../EventList';
 import Event from '../Event';
 import { mockData } from '../mock-data';
 
@@ -8,7 +7,7 @@ import { mockData } from '../mock-data';
 describe('<Event /> component', () => {
     let EventWrapper;
     beforeEach(() => {
-        EventWrapper = shallow(<Event event={mockData[0]}/>)
+        EventWrapper = shallow(<Event event={mockData[0]} />)
     })
 
     it('renders the summary of the event', () => {
