@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/CF_meet-app/static/css/main.5020dabd.chunk.css",
-    "main.js": "/CF_meet-app/static/js/main.225f9423.chunk.js",
-    "main.js.map": "/CF_meet-app/static/js/main.225f9423.chunk.js.map",
+    "main.js": "/CF_meet-app/static/js/main.fd078805.chunk.js",
+    "main.js.map": "/CF_meet-app/static/js/main.fd078805.chunk.js.map",
     "runtime-main.js": "/CF_meet-app/static/js/runtime-main.7ab6f2f6.js",
     "runtime-main.js.map": "/CF_meet-app/static/js/runtime-main.7ab6f2f6.js.map",
-    "static/js/2.baaa440e.chunk.js": "/CF_meet-app/static/js/2.baaa440e.chunk.js",
-    "static/js/2.baaa440e.chunk.js.map": "/CF_meet-app/static/js/2.baaa440e.chunk.js.map",
+    "static/js/2.c2a19cbf.chunk.js": "/CF_meet-app/static/js/2.c2a19cbf.chunk.js",
+    "static/js/2.c2a19cbf.chunk.js.map": "/CF_meet-app/static/js/2.c2a19cbf.chunk.js.map",
     "static/js/3.919ae490.chunk.js": "/CF_meet-app/static/js/3.919ae490.chunk.js",
     "static/js/3.919ae490.chunk.js.map": "/CF_meet-app/static/js/3.919ae490.chunk.js.map",
     "index.html": "/CF_meet-app/index.html",
     "service-worker.js": "/CF_meet-app/service-worker.js",
     "service-worker.js.map": "/CF_meet-app/service-worker.js.map",
     "static/css/main.5020dabd.chunk.css.map": "/CF_meet-app/static/css/main.5020dabd.chunk.css.map",
-    "static/js/2.baaa440e.chunk.js.LICENSE.txt": "/CF_meet-app/static/js/2.baaa440e.chunk.js.LICENSE.txt"
+    "static/js/2.c2a19cbf.chunk.js.LICENSE.txt": "/CF_meet-app/static/js/2.c2a19cbf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7ab6f2f6.js",
-    "static/js/2.baaa440e.chunk.js",
+    "static/js/2.c2a19cbf.chunk.js",
     "static/css/main.5020dabd.chunk.css",
-    "static/js/main.225f9423.chunk.js"
+    "static/js/main.fd078805.chunk.js"
   ]
 }
