@@ -1,25 +1,24 @@
 {
   "files": {
-    "main.css": "/CF_meet-app/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/CF_meet-app/static/js/main.3d4e052f.chunk.js",
-    "main.js.map": "/CF_meet-app/static/js/main.3d4e052f.chunk.js.map",
-    "runtime-main.js": "/CF_meet-app/static/js/runtime-main.5402f285.js",
-    "runtime-main.js.map": "/CF_meet-app/static/js/runtime-main.5402f285.js.map",
-    "static/js/2.579ba39d.chunk.js": "/CF_meet-app/static/js/2.579ba39d.chunk.js",
-    "static/js/2.579ba39d.chunk.js.map": "/CF_meet-app/static/js/2.579ba39d.chunk.js.map",
-    "static/js/3.b5288e77.chunk.js": "/CF_meet-app/static/js/3.b5288e77.chunk.js",
-    "static/js/3.b5288e77.chunk.js.map": "/CF_meet-app/static/js/3.b5288e77.chunk.js.map",
+    "main.css": "/CF_meet-app/static/css/main.5020dabd.chunk.css",
+    "main.js": "/CF_meet-app/static/js/main.8fef0546.chunk.js",
+    "main.js.map": "/CF_meet-app/static/js/main.8fef0546.chunk.js.map",
+    "runtime-main.js": "/CF_meet-app/static/js/runtime-main.7ab6f2f6.js",
+    "runtime-main.js.map": "/CF_meet-app/static/js/runtime-main.7ab6f2f6.js.map",
+    "static/js/2.baaa440e.chunk.js": "/CF_meet-app/static/js/2.baaa440e.chunk.js",
+    "static/js/2.baaa440e.chunk.js.map": "/CF_meet-app/static/js/2.baaa440e.chunk.js.map",
+    "static/js/3.919ae490.chunk.js": "/CF_meet-app/static/js/3.919ae490.chunk.js",
+    "static/js/3.919ae490.chunk.js.map": "/CF_meet-app/static/js/3.919ae490.chunk.js.map",
     "index.html": "/CF_meet-app/index.html",
     "service-worker.js": "/CF_meet-app/service-worker.js",
     "service-worker.js.map": "/CF_meet-app/service-worker.js.map",
-    "static/css/main.9d5b29c0.chunk.css.map": "/CF_meet-app/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.579ba39d.chunk.js.LICENSE.txt": "/CF_meet-app/static/js/2.579ba39d.chunk.js.LICENSE.txt",
-    "static/media/logo.103b5fa1.svg": "/CF_meet-app/static/media/logo.103b5fa1.svg"
+    "static/css/main.5020dabd.chunk.css.map": "/CF_meet-app/static/css/main.5020dabd.chunk.css.map",
+    "static/js/2.baaa440e.chunk.js.LICENSE.txt": "/CF_meet-app/static/js/2.baaa440e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.5402f285.js",
-    "static/js/2.579ba39d.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.3d4e052f.chunk.js"
+    "static/js/runtime-main.7ab6f2f6.js",
+    "static/js/2.baaa440e.chunk.js",
+    "static/css/main.5020dabd.chunk.css",
+    "static/js/main.8fef0546.chunk.js"
   ]
 }
