@@ -4,14 +4,13 @@ import EventList from '../EventList';
 import Event from '../Event';
 import { mockData } from '../mock-data';
 
-describe('<App /> component', () => {
-  let EventListWrapper
-  beforeAll(() => {
-    EventListWrapper = shallow(<EventList events={mockData} />);
+describe('<EventList /> component', () => {
+	let EventListWrapper;
+	beforeAll(() => {
+		EventListWrapper = shallow(<EventList events={mockData} />);
+	});
 
-  })
-
-  it('renders all events', () => {      
-    expect(EventListWrapper.find(Event)).toHaveLength(mockData.length);
-  });
+	it('renders all events', () => {
+		expect(EventListWrapper.find(Event)).toHaveLength(mockData.length);
+	});
 });
