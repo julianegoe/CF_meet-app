@@ -11,6 +11,7 @@ export default class App extends Component {
 		this.state = {
 			events: [],
 			locations: [],
+			eventsNumber: '10',
 		};
 	}
 
@@ -18,7 +19,11 @@ export default class App extends Component {
 		this.mounted = true;
 		getEvents().then((events) => {
 			if (this.mounted) {
-				this.setState({ events, locations: extractLocations(events) });
+				const filteredEvents = events.slice(0, this.state.eventsNumber);
+				this.setState({
+					events: filteredEvents,
+					locations: extractLocations(events),
+				});
 			}
 		});
 	}
@@ -26,6 +31,10 @@ export default class App extends Component {
 	componentWillUnmount() {
 		this.mounted = false;
 	}
+
+	updateEventsNumber = (value) => {
+		this.setState({ eventsNumber: value });
+	};
 
 	updateEvents = async (location) => {
 		const allEvents = await getEvents();
@@ -42,7 +51,11 @@ export default class App extends Component {
 		return (
 			<div className='App'>
 				<CitySearch locations={locations} updateEvents={this.updateEvents} />
-				<NumberOfEvents />
+				<NumberOfEvents
+					eventsNumber={this.state.eventsNumber}
+					updateEventsNumber={this.updateEventsNumber}
+					updateEvents={this.updateEvents}
+				/>
 				<EventList events={events} />
 			</div>
 		);

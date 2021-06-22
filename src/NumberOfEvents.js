@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
 
-export default class NumberOfEvents extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			searchNumber: '32',
-		};
-	}
-
-	handleChange = (event) => {
-		this.setState({ searchNumber: event.target.value });
-	};
-
+class NumberOfEvents extends Component {
 	render() {
 		return (
 			<div>
@@ -19,12 +8,14 @@ export default class NumberOfEvents extends Component {
 				<input
 					type='number'
 					id='event-number'
-					value={this.state.searchNumber}
+					value={this.props.eventsNumber}
 					onChange={(e) => {
-						this.handleChange(e);
+						this.setState({ searchNumber: e.target.value });
 					}}
 				/>
 			</div>
 		);
 	}
 }
+
+export default NumberOfEvents;

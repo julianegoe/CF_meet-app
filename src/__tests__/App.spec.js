@@ -70,4 +70,34 @@ describe('<App /> component integraton', () => {
 		expect(AppWrapper.state('events')).toEqual(allEvents);
 		AppWrapper.unmount();
 	});
+
+	it('renders list of events according to the event state', () => {
+		const AppWrapper = mount(<App />);
+		const EventListWrapper = AppWrapper.find('.eventList li');
+		expect(EventListWrapper).toHaveLength(AppWrapper.state().events.length);
+		AppWrapper.unmount();
+	});
+
+	it('renders the default number of events given there is as much to render', async () => {
+		const AppWrapper = await mount(<App />);
+		const AppEventState = AppWrapper.state('events');
+		const AppEventsNumberState = AppWrapper.state('eventsNumber');
+
+		expect(AppEventState).toHaveLength(
+			Math.min(AppEventsNumberState, mockData.length)
+		);
+		AppWrapper.unmount();
+	});
+
+	it('render a number of events according to the user input', async () => {
+		const AppWrapper = await mount(<App />);
+		const AppEventState = AppWrapper.state('events');
+		const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+		const eventObject = { target: { value: '14' } };
+		NumberOfEventsWrapper.find('#event-number').simulate('change', eventObject);
+		expect(AppEventState).toHaveLength(
+			Math.min(eventObject.target.value, mockData.length)
+		);
+		AppWrapper.unmount();
+	});
 });
