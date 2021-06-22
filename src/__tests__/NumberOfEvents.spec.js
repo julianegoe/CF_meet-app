@@ -18,14 +18,14 @@ describe('NumberOfEvents component', () => {
 		expect(NumberOfEventsWrapper.find('#event-number')).toHaveLength(1);
 	});
 
-	it('has a default input value of 10', () => {
+	it('has a default input value', () => {
 		expect(NumberOfEventsWrapper.find('#event-number').props().value).toBe(
 			'10'
 		);
 	});
 
 	it('renders the user input correctly', () => {
-		const eventObject = { target: { value: '10' } };
+		const eventObject = { target: { value: '9' } };
 		NumberOfEventsWrapper.find('#event-number').simulate('change', eventObject);
 		expect(NumberOfEventsWrapper.find('#event-number').props().value).toBe(
 			'10'

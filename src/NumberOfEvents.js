@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class NumberOfEvents extends Component {
+	handleChange = (event) => {
+		this.props.updateEventsNumber(event.target.value);
+		this.props.updateEvents(null, event.target.value);
+	};
+
 	render() {
 		return (
 			<div>
@@ -9,9 +14,7 @@ class NumberOfEvents extends Component {
 					type='number'
 					id='event-number'
 					value={this.props.eventsNumber}
-					onChange={(e) => {
-						this.setState({ searchNumber: e.target.value });
-					}}
+					onChange={this.handleChange}
 				/>
 			</div>
 		);

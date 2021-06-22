@@ -30,6 +30,10 @@ class CitySearch extends Component {
 		this.setState({ showSuggestions: true });
 	};
 
+	handleBlur = () => {
+		this.setState({ showSuggestions: false });
+	};
+
 	render() {
 		const { query, suggestions, showSuggestions } = this.state;
 		return (
@@ -40,6 +44,7 @@ class CitySearch extends Component {
 					className='city'
 					onChange={this.handleInput}
 					onFocus={this.handleFocus}
+					onBlur={this.handleBlur}
 				/>
 
 				<ul

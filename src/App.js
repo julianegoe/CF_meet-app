@@ -36,14 +36,18 @@ export default class App extends Component {
 		this.setState({ eventsNumber: value });
 	};
 
-	updateEvents = async (location) => {
+	updateEvents = async (location, number = this.state.eventsNumber) => {
 		const allEvents = await getEvents();
-		if (location !== 'all') {
+		if (location === 'all') {
+			this.setState({ events: allEvents });
+		} else {
 			const updatedEvents = allEvents.filter((event) => {
 				return event.location === location;
 			});
 			this.setState({ events: updatedEvents });
-		} else this.setState({ events: allEvents });
+		}
+		const slicedEvents = allEvents.slice(0, number);
+		this.setState({ eventsNumber: slicedEvents });
 	};
 
 	render() {
@@ -53,8 +57,8 @@ export default class App extends Component {
 				<CitySearch locations={locations} updateEvents={this.updateEvents} />
 				<NumberOfEvents
 					eventsNumber={this.state.eventsNumber}
-					updateEventsNumber={this.updateEventsNumber}
-					updateEvents={this.updateEvents}
+					updateEventsNumber={this.updateEventsNumber.bind(this)}
+					updateEvents={this.updateEvents.bind(this)}
 				/>
 				<EventList events={events} />
 			</div>
