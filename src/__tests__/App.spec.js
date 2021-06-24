@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import App from '../App';
 import EventList from '../EventList';
-import Event from '../Event';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 import { mockData } from '../mock-data';
@@ -78,25 +77,29 @@ describe('<App /> component integraton', () => {
 		AppWrapper.unmount();
 	});
 
-	it('renders the default number of events given there is as much to render', async () => {
+	it('renders the default number of events', async () => {
 		const AppWrapper = await mount(<App />);
 		const AppEventState = AppWrapper.state('events');
-		const AppEventsNumberState = AppWrapper.state('eventsNumber');
+		const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+		expect(AppEventState).toHaveLength(AppNumberOfEventsState);
+		AppWrapper.unmount();
+	});
 
-		expect(AppEventState).toHaveLength(
-			Math.min(AppEventsNumberState, mockData.length)
-		);
+	it('updates input field according to user input', async () => {
+		const AppWrapper = await mount(<App />);
+		const inputField = AppWrapper.find('#event-number');
+		const eventObject = { target: { value: null } };
+		inputField.simulate('change', eventObject);
+		expect(AppWrapper.state('numberOfEvents')).toBe(inputField.props().value);
 		AppWrapper.unmount();
 	});
 
 	it('render a number of events according to the user input', async () => {
 		const AppWrapper = await mount(<App />);
-		const AppEventState = AppWrapper.state('events');
-		const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-		const eventObject = { target: { value: '14' } };
-		NumberOfEventsWrapper.find('#event-number').simulate('change', eventObject);
-		expect(AppEventState).toHaveLength(
-			Math.min(eventObject.target.value, mockData.length)
+		const eventObject = { target: { value: 5 } };
+		AppWrapper.find('#event-number').simulate('change', eventObject);
+		expect(AppWrapper.state('events')).toHaveLength(
+			AppWrapper.state('numberOfEvents')
 		);
 		AppWrapper.unmount();
 	});

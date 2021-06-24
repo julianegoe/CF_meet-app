@@ -1,67 +1,47 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 
-export default class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			events: [],
-			locations: [],
-			eventsNumber: '10',
-		};
-	}
+export default function App() {
+	const [events, setEvents] = useState([]);
+	const [locations, setLocations] = useState([]);
+	const [number, setNumber] = useState(10);
 
-	componentDidMount() {
-		this.mounted = true;
-		getEvents().then((events) => {
-			if (this.mounted) {
-				const filteredEvents = events.slice(0, this.state.eventsNumber);
-				this.setState({
-					events: filteredEvents,
-					locations: extractLocations(events),
-				});
-			}
-		});
-	}
+	useEffect(() => {
+		async function fetchEvents() {
+			await getEvents().then((events) => {
+				setEvents(events);
+				const locations = extractLocations(events);
+				setLocations(locations);
+			});
+		}
+		fetchEvents();
+	}, []);
 
-	componentWillUnmount() {
-		this.mounted = false;
-	}
-
-	updateEventsNumber = (value) => {
-		this.setState({ eventsNumber: value });
-	};
-
-	updateEvents = async (location, number = this.state.eventsNumber) => {
+	const updateEvents = async (location, number) => {
 		const allEvents = await getEvents();
 		if (location === 'all') {
-			this.setState({ events: allEvents });
+			setEvents(allEvents);
 		} else {
 			const updatedEvents = allEvents.filter((event) => {
 				return event.location === location;
 			});
-			this.setState({ events: updatedEvents });
+			setEvents(updatedEvents);
 		}
-		const slicedEvents = allEvents.slice(0, number);
-		this.setState({ eventsNumber: slicedEvents });
 	};
 
-	render() {
-		const { events, locations } = this.state;
-		return (
-			<div className='App'>
-				<CitySearch locations={locations} updateEvents={this.updateEvents} />
-				<NumberOfEvents
-					eventsNumber={this.state.eventsNumber}
-					updateEventsNumber={this.updateEventsNumber.bind(this)}
-					updateEvents={this.updateEvents.bind(this)}
-				/>
-				<EventList events={events} />
-			</div>
-		);
-	}
+	const updateNumber = (number) => {
+		setNumber(number);
+	};
+
+	return (
+		<div className='App'>
+			<CitySearch locations={locations} updateEvents={updateEvents} />
+			<NumberOfEvents number={number} updateNumber={updateNumber} />
+			<EventList number={number} events={events} />
+		</div>
+	);
 }
