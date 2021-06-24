@@ -70,36 +70,30 @@ describe('<App /> component integraton', () => {
 		AppWrapper.unmount();
 	});
 
-	it('renders list of events according to the event state', () => {
-		const AppWrapper = mount(<App />);
-		const EventListWrapper = AppWrapper.find('.eventList li');
-		expect(EventListWrapper).toHaveLength(AppWrapper.state().events.length);
-		AppWrapper.unmount();
-	});
-
 	it('renders the default number of events', async () => {
 		const AppWrapper = await mount(<App />);
-		const AppEventState = AppWrapper.state('events');
-		const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
-		expect(AppEventState).toHaveLength(AppNumberOfEventsState);
+		AppWrapper.setState({ events: mockData });
+		const AppNumberState = AppWrapper.state('number');
+		expect(AppWrapper.find('.eventList li')).toHaveLength(AppNumberState);
 		AppWrapper.unmount();
 	});
 
 	it('updates input field according to user input', async () => {
 		const AppWrapper = await mount(<App />);
 		const inputField = AppWrapper.find('#event-number');
-		const eventObject = { target: { value: null } };
+		const eventObject = { target: { value: 5 } };
 		inputField.simulate('change', eventObject);
-		expect(AppWrapper.state('numberOfEvents')).toBe(inputField.props().value);
+		expect(AppWrapper.state('number')).toBe(eventObject.target.value);
 		AppWrapper.unmount();
 	});
 
 	it('render a number of events according to the user input', async () => {
 		const AppWrapper = await mount(<App />);
+		AppWrapper.setState({ events: mockData });
 		const eventObject = { target: { value: 5 } };
 		AppWrapper.find('#event-number').simulate('change', eventObject);
-		expect(AppWrapper.state('events')).toHaveLength(
-			AppWrapper.state('numberOfEvents')
+		expect(AppWrapper.find('.eventList li')).toHaveLength(
+			AppWrapper.state('number')
 		);
 		AppWrapper.unmount();
 	});

@@ -1,47 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 
-export default function App() {
-	const [events, setEvents] = useState([]);
-	const [locations, setLocations] = useState([]);
-	const [number, setNumber] = useState(10);
+export default class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			events: [],
+			locations: [],
+			number: 10,
+		};
+	}
 
-	useEffect(() => {
-		async function fetchEvents() {
-			await getEvents().then((events) => {
-				setEvents(events);
-				const locations = extractLocations(events);
-				setLocations(locations);
-			});
-		}
-		fetchEvents();
-	}, []);
+	componentDidMount() {
+		this.mounted = true;
+		getEvents().then((events) => {
+			if (this.mounted) {
+				this.setState({
+					events: events,
+					locations: extractLocations(events),
+				});
+			}
+		});
+	}
 
-	const updateEvents = async (location, number) => {
+	componentWillUnmount() {
+		this.mounted = false;
+	}
+
+	updateEvents = async (location) => {
 		const allEvents = await getEvents();
 		if (location === 'all') {
-			setEvents(allEvents);
+			this.setState({ events: allEvents });
 		} else {
 			const updatedEvents = allEvents.filter((event) => {
 				return event.location === location;
 			});
-			setEvents(updatedEvents);
+			this.setState({ events: updatedEvents });
 		}
 	};
 
-	const updateNumber = (number) => {
-		setNumber(number);
+	updateNumber = (number) => {
+		this.setState({ number: number });
 	};
 
-	return (
-		<div className='App'>
-			<CitySearch locations={locations} updateEvents={updateEvents} />
-			<NumberOfEvents number={number} updateNumber={updateNumber} />
-			<EventList number={number} events={events} />
-		</div>
-	);
+	render() {
+		const { locations, events, number } = this.state;
+		return (
+			<div className='App'>
+				<CitySearch locations={locations} updateEvents={this.updateEvents} />
+				<NumberOfEvents number={number} updateNumber={this.updateNumber} />
+				<EventList number={number} events={events} />
+			</div>
+		);
+	}
 }

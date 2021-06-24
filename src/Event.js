@@ -1,37 +1,45 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
-export default function Event({ event }) {
-	const [buttonLabel, setBttonLabel] = useState('Show Details');
+export default class Event extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			buttonLabel: 'Show Details',
+		};
+	}
 
-	const handleClick = () => {
-		buttonLabel === 'Show Details'
-			? setBttonLabel('Hide Details')
-			: setBttonLabel('Show Details');
+	handleClick = () => {
+		this.state.buttonLabel === 'Show Details'
+			? this.setState({ buttonLabel: 'Hide Details' })
+			: this.setState({ buttonLabel: 'Show Details' });
 	};
 
-	return (
-		<div className='event'>
-			<h1>{event.summary}</h1>
-			<p className='date-time'>{event.start.dateTime}</p>
-			<span className='time-zone'>({event.start.timeZone})</span>
-			<p className='location'>{event.location}</p>
-			{buttonLabel === 'Hide Details' ? (
-				<div>
-					<h2 className='about-event'>About Event</h2>
-					<p className='description'>{event.description}</p>
-					<a className='html-link' href={event.htmlLink}>
-						See Details on Google Calendar
-					</a>
-				</div>
-			) : null}
+	render() {
+		const { buttonLabel } = this.state;
+		return (
+			<div className='event'>
+				<h1>{this.props.event.summary}</h1>
+				<p className='date-time'>{this.props.event.start.dateTime}</p>
+				<span className='time-zone'>({this.props.event.start.timeZone})</span>
+				<p className='location'>{this.props.event.location}</p>
+				{buttonLabel === 'Hide Details' ? (
+					<div>
+						<h2 className='about-event'>About Event</h2>
+						<p className='description'>{this.props.event.description}</p>
+						<a className='html-link' href={this.props.event.htmlLink}>
+							See Details on Google Calendar
+						</a>
+					</div>
+				) : null}
 
-			<button
-				className='details-btn'
-				onClick={() => {
-					handleClick();
-				}}>
-				{buttonLabel}
-			</button>
-		</div>
-	);
+				<button
+					className='details-btn'
+					onClick={() => {
+						this.handleClick();
+					}}>
+					{buttonLabel}
+				</button>
+			</div>
+		);
+	}
 }

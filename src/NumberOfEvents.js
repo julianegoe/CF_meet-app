@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-function NumberOfEvents({ number, updateNumber }) {
-	return (
-		<div>
-			<label htmlFor='event-number'>Number of Events:</label>
-			<input
-				id='event-number'
-				type='number'
-				value={number}
-				onChange={(e) => updateNumber(e.target.value)}></input>
-		</div>
-	);
+class NumberOfEvents extends Component {
+	render() {
+		return (
+			<div>
+				<label htmlFor='event-number'>Number of Events:</label>
+				<input
+					id='event-number'
+					type='number'
+					defaultValue={this.props.number}
+					onChange={(e) => this.props.updateNumber(e.target.value)}></input>
+			</div>
+		);
+	}
 }
 
 export default NumberOfEvents;
