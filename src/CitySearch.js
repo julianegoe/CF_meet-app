@@ -22,16 +22,12 @@ class CitySearch extends Component {
 
 	handleItemClicked = (suggestion) => {
 		this.setState({ query: suggestion });
-		this.props.updateEvents(suggestion);
+		this.props.updateEvents(suggestion, null);
 		this.setState({ showSuggestions: false });
 	};
 
 	handleFocus = () => {
 		this.setState({ showSuggestions: true });
-	};
-
-	handleBlur = () => {
-		this.setState({ showSuggestions: false });
 	};
 
 	render() {
@@ -44,7 +40,6 @@ class CitySearch extends Component {
 					className='city'
 					onChange={this.handleInput}
 					onFocus={this.handleFocus}
-					onBlur={this.handleBlur}
 				/>
 
 				<ul

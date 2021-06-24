@@ -19,16 +19,9 @@ describe('NumberOfEvents component', () => {
 	});
 
 	it('has a default input value', () => {
+		const number = NumberOfEventsWrapper.instance().props.numberOfEvents;
 		expect(NumberOfEventsWrapper.find('#event-number').props().value).toBe(
-			'10'
-		);
-	});
-
-	it('renders the user input correctly', () => {
-		const eventObject = { target: { value: '9' } };
-		NumberOfEventsWrapper.find('#event-number').simulate('change', eventObject);
-		expect(NumberOfEventsWrapper.find('#event-number').props().value).toBe(
-			'10'
+			number
 		);
 	});
 });

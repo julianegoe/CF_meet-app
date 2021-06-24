@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import App from '../App';
 import EventList from '../EventList';
-import Event from '../Event';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 import { mockData } from '../mock-data';
@@ -71,32 +70,30 @@ describe('<App /> component integraton', () => {
 		AppWrapper.unmount();
 	});
 
-	it('renders list of events according to the event state', () => {
-		const AppWrapper = mount(<App />);
-		const EventListWrapper = AppWrapper.find('.eventList li');
-		expect(EventListWrapper).toHaveLength(AppWrapper.state().events.length);
+	it('renders the default number of events', async () => {
+		const AppWrapper = await mount(<App />);
+		AppWrapper.setState({ events: mockData });
+		const AppNumberState = AppWrapper.state('number');
+		expect(AppWrapper.find('.eventList li')).toHaveLength(AppNumberState);
 		AppWrapper.unmount();
 	});
 
-	it('renders the default number of events given there is as much to render', async () => {
+	it('updates input field according to user input', async () => {
 		const AppWrapper = await mount(<App />);
-		const AppEventState = AppWrapper.state('events');
-		const AppEventsNumberState = AppWrapper.state('eventsNumber');
-
-		expect(AppEventState).toHaveLength(
-			Math.min(AppEventsNumberState, mockData.length)
-		);
+		const inputField = AppWrapper.find('#event-number');
+		const eventObject = { target: { value: 5 } };
+		inputField.simulate('change', eventObject);
+		expect(AppWrapper.state('number')).toBe(eventObject.target.value);
 		AppWrapper.unmount();
 	});
 
 	it('render a number of events according to the user input', async () => {
 		const AppWrapper = await mount(<App />);
-		const AppEventState = AppWrapper.state('events');
-		const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-		const eventObject = { target: { value: '14' } };
-		NumberOfEventsWrapper.find('#event-number').simulate('change', eventObject);
-		expect(AppEventState).toHaveLength(
-			Math.min(eventObject.target.value, mockData.length)
+		AppWrapper.setState({ events: mockData });
+		const eventObject = { target: { value: 5 } };
+		AppWrapper.find('#event-number').simulate('change', eventObject);
+		expect(AppWrapper.find('.eventList li')).toHaveLength(
+			AppWrapper.state('number')
 		);
 		AppWrapper.unmount();
 	});

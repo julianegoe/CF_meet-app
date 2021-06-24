@@ -15,13 +15,14 @@ export default class Event extends Component {
 	};
 
 	render() {
+		const { buttonLabel } = this.state;
 		return (
 			<div className='event'>
 				<h1>{this.props.event.summary}</h1>
 				<p className='date-time'>{this.props.event.start.dateTime}</p>
 				<span className='time-zone'>({this.props.event.start.timeZone})</span>
 				<p className='location'>{this.props.event.location}</p>
-				{this.state.buttonLabel === 'Hide Details' ? (
+				{buttonLabel === 'Hide Details' ? (
 					<div>
 						<h2 className='about-event'>About Event</h2>
 						<p className='description'>{this.props.event.description}</p>
@@ -36,7 +37,7 @@ export default class Event extends Component {
 					onClick={() => {
 						this.handleClick();
 					}}>
-					{this.state.buttonLabel}
+					{buttonLabel}
 				</button>
 			</div>
 		);

@@ -11,7 +11,7 @@ export default class App extends Component {
 		this.state = {
 			events: [],
 			locations: [],
-			eventsNumber: '10',
+			number: 10,
 		};
 	}
 
@@ -19,9 +19,8 @@ export default class App extends Component {
 		this.mounted = true;
 		getEvents().then((events) => {
 			if (this.mounted) {
-				const filteredEvents = events.slice(0, this.state.eventsNumber);
 				this.setState({
-					events: filteredEvents,
+					events: events,
 					locations: extractLocations(events),
 				});
 			}
@@ -32,11 +31,7 @@ export default class App extends Component {
 		this.mounted = false;
 	}
 
-	updateEventsNumber = (value) => {
-		this.setState({ eventsNumber: value });
-	};
-
-	updateEvents = async (location, number = this.state.eventsNumber) => {
+	updateEvents = async (location) => {
 		const allEvents = await getEvents();
 		if (location === 'all') {
 			this.setState({ events: allEvents });
@@ -46,21 +41,19 @@ export default class App extends Component {
 			});
 			this.setState({ events: updatedEvents });
 		}
-		const slicedEvents = allEvents.slice(0, number);
-		this.setState({ eventsNumber: slicedEvents });
+	};
+
+	updateNumber = (number) => {
+		this.setState({ number: number });
 	};
 
 	render() {
-		const { events, locations } = this.state;
+		const { locations, events, number } = this.state;
 		return (
 			<div className='App'>
 				<CitySearch locations={locations} updateEvents={this.updateEvents} />
-				<NumberOfEvents
-					eventsNumber={this.state.eventsNumber}
-					updateEventsNumber={this.updateEventsNumber.bind(this)}
-					updateEvents={this.updateEvents.bind(this)}
-				/>
-				<EventList events={events} />
+				<NumberOfEvents number={number} updateNumber={this.updateNumber} />
+				<EventList number={number} events={events} />
 			</div>
 		);
 	}

@@ -7,10 +7,12 @@ import { mockData } from '../mock-data';
 describe('<EventList /> component', () => {
 	let EventListWrapper;
 	beforeAll(() => {
-		EventListWrapper = shallow(<EventList events={mockData} />);
+		EventListWrapper = shallow(<EventList number={10} events={mockData} />);
 	});
 
-	it('renders all events', () => {
-		expect(EventListWrapper.find(Event)).toHaveLength(mockData.length);
+	it('renders default number of events', () => {
+		expect(EventListWrapper.find(Event)).toHaveLength(
+			EventListWrapper.props().children.length
+		);
 	});
 });
