@@ -31,14 +31,20 @@ export default class App extends Component {
 		this.mounted = false;
 	}
 
-	updateEvents = async (location) => {
+	updateEvents = async (location, number) => {
+		// default values
+		number = number || this.state.number;
+		location = location || 'all';
+
 		const allEvents = await getEvents();
 		if (location === 'all') {
 			this.setState({ events: allEvents });
 		} else {
-			const updatedEvents = allEvents.filter((event) => {
-				return event.location === location;
-			});
+			const updatedEvents = allEvents
+				.filter((event) => {
+					return event.location === location;
+				})
+				.filter((item, index) => index < number);
 			this.setState({ events: updatedEvents });
 		}
 	};
