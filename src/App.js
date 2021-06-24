@@ -57,9 +57,21 @@ export default class App extends Component {
 		const { locations, events, number } = this.state;
 		return (
 			<div className='App'>
-				<CitySearch locations={locations} updateEvents={this.updateEvents} />
-				<NumberOfEvents number={number} updateNumber={this.updateNumber} />
-				<EventList number={number} events={events} />
+				<nav>
+					<div className='logo'>Meet-App</div>
+					<ul className='navigation-list'>
+						<li id='search-nav' className='navigation-list__item'>
+							<CitySearch
+								locations={locations}
+								updateEvents={this.updateEvents}
+							/>
+						</li>
+					</ul>
+				</nav>
+				<div className='container'>
+					<NumberOfEvents number={number} updateNumber={this.updateNumber} />
+					<EventList number={number} events={events} />
+				</div>
 			</div>
 		);
 	}
