@@ -23,7 +23,7 @@ export default class Event extends Component {
 				<span className='time-zone'>({this.props.event.start.timeZone})</span>
 				<p className='location'>{this.props.event.location}</p>
 				{buttonLabel === 'Hide Details' ? (
-					<div>
+					<div className='event__Details'>
 						<h2 className='about-event'>About Event</h2>
 						<p className='description'>{this.props.event.description}</p>
 						<a className='html-link' href={this.props.event.htmlLink}>
