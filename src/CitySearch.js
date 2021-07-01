@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { InfoAlert } from './Alert';
 
 class CitySearch extends Component {
 	constructor(props) {
@@ -7,23 +8,37 @@ class CitySearch extends Component {
 			query: '',
 			suggestions: [],
 			showSuggestions: undefined,
+			infoText: '',
 		};
 	}
 
 	handleInput = (event) => {
-		this.setState({ query: event.target.value });
+		const value = event.target.value;
 		const filteredLocations = this.props.locations.filter((location) => {
 			return (
 				location.toUpperCase().indexOf(event.target.value.toUpperCase()) > -1
 			);
 		});
-		this.setState({ suggestions: filteredLocations });
+		if (filteredLocations.length === 0) {
+			this.setState({
+				query: value,
+				suggestions: filteredLocations,
+				infoText: "We couldn't find your location. Please enter another one.",
+			});
+		} else {
+			this.setState({
+				query: value,
+				suggestions: filteredLocations,
+				infoText: '',
+			});
+		}
 	};
 
 	handleItemClicked = (suggestion) => {
 		this.setState({ query: suggestion });
 		this.props.updateEvents(suggestion, null);
 		this.setState({ showSuggestions: false });
+		this.setState({ infoText: '' });
 	};
 
 	handleFocus = () => {
@@ -34,6 +49,8 @@ class CitySearch extends Component {
 		const { query, suggestions, showSuggestions } = this.state;
 		return (
 			<div className='CitySearch'>
+				{' '}
+				<label htmlFor='city'>Search for Location: </label>
 				<input
 					type='text'
 					value={query}
@@ -41,7 +58,7 @@ class CitySearch extends Component {
 					onChange={this.handleInput}
 					onFocus={this.handleFocus}
 				/>
-
+				<InfoAlert text={this.state.infoText} />
 				<ul
 					className='suggestions'
 					style={showSuggestions ? {} : { display: 'none' }}>

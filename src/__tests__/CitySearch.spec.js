@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import CitySearch from '../CitySearch';
+import { InfoAlert } from '../Alert';
 import { mockData } from '../mock-data';
 import { extractLocations } from '../api';
 
@@ -89,5 +90,37 @@ describe('<CitySearch /> component', () => {
 		expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({
 			display: 'none',
 		});
+	});
+});
+
+describe('<CitySearch /> integration test', () => {
+	let locations;
+	beforeAll(() => {
+		locations = extractLocations(mockData);
+	});
+
+	it('should show the info Text when user enters not found location', async () => {
+		const CitySearchWrapper = await mount(
+			<CitySearch locations={locations} updateEvents={() => {}} />
+		);
+		CitySearchWrapper.find('.city').simulate('change', {
+			target: { value: 'nebwbda' },
+		});
+		expect(CitySearchWrapper.find(InfoAlert).props('text').text).toBe(
+			"We couldn't find your location. Please enter another one."
+		);
+		CitySearchWrapper.unmount();
+	});
+
+	it('should hide the info Text when user clicks All Cities', async () => {
+		const CitySearchWrapper = await mount(
+			<CitySearch locations={locations} updateEvents={() => {}} />
+		);
+		CitySearchWrapper.find('.city').simulate('change', {
+			target: { value: 'nebwbda' },
+		});
+		CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+		expect(CitySearchWrapper.find(InfoAlert).props('text').text).toBe('');
+		CitySearchWrapper.unmount();
 	});
 });

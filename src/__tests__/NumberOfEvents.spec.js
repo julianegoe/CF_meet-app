@@ -10,7 +10,7 @@ describe('NumberOfEvents component', () => {
 
 	it('renders lebel for number of events input field', () => {
 		expect(NumberOfEventsWrapper.find('label').text()).toBe(
-			'Number of Events:'
+			'Number of Events: '
 		);
 	});
 

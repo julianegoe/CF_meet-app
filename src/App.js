@@ -12,6 +12,8 @@ export default class App extends Component {
 			events: [],
 			locations: [],
 			number: 10,
+			errorText: '',
+			infoText: '',
 		};
 	}
 
@@ -38,7 +40,7 @@ export default class App extends Component {
 
 		const allEvents = await getEvents();
 		if (location === 'all') {
-			this.setState({ events: allEvents });
+			this.setState({ events: allEvents, infoText: '' });
 		} else {
 			const updatedEvents = allEvents
 				.filter((event) => {
@@ -50,26 +52,35 @@ export default class App extends Component {
 	};
 
 	updateNumber = (number) => {
-		this.setState({ number: number });
+		let validationText = '';
+
+		if (number < 0) {
+			validationText = "You can't enter negative numbers.";
+		} else if (number > this.state.events.length) {
+			validationText = `There are not ${number} events. Please enter a smaller number.`;
+		} else {
+			this.setState({ number: number });
+		}
+		this.setState({ errorText: validationText });
 	};
 
 	render() {
-		const { locations, events, number } = this.state;
+		const { locations, events, number, errorText } = this.state;
 		return (
 			<div className='App'>
 				<nav>
 					<div className='logo'>Meet-App</div>
 					<ul className='navigation-list'>
-						<li id='search-nav' className='navigation-list__item'>
-							<CitySearch
-								locations={locations}
-								updateEvents={this.updateEvents}
-							/>
-						</li>
+						<li id='search-nav' className='navigation-list__item'></li>
 					</ul>
 				</nav>
 				<div className='container'>
-					<NumberOfEvents number={number} updateNumber={this.updateNumber} />
+					<NumberOfEvents
+						errorText={errorText}
+						number={number}
+						updateNumber={this.updateNumber}
+					/>
+					<CitySearch locations={locations} updateEvents={this.updateEvents} />
 					<EventList number={number} events={events} />
 				</div>
 			</div>
