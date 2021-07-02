@@ -3,6 +3,7 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import { WarningAlert } from './Alert';
 import { extractLocations, getEvents } from './api';
 
 export default class App extends Component {
@@ -14,11 +15,22 @@ export default class App extends Component {
 			number: 10,
 			errorText: '',
 			infoText: '',
+			warnText: '',
 		};
 	}
 
 	componentDidMount() {
 		this.mounted = true;
+		window.addEventListener('offline', () => {
+			this.setState({
+				warnText: "You're offline. The data you see may not be up to date.",
+			});
+		});
+		window.addEventListener('online', () => {
+			this.setState({
+				warnText: '',
+			});
+		});
 		getEvents().then((events) => {
 			if (this.mounted) {
 				this.setState({
@@ -31,6 +43,17 @@ export default class App extends Component {
 
 	componentWillUnmount() {
 		this.mounted = false;
+		window.removeEventListener('keydown', () => {
+			this.setState({
+				warnText: "You're offline. The dada you see may not be up to date.",
+			});
+		});
+
+		window.removeEventListener('online', () => {
+			this.setState({
+				warnText: '',
+			});
+		});
 	}
 
 	updateEvents = async (location, number) => {
@@ -65,22 +88,24 @@ export default class App extends Component {
 	};
 
 	render() {
-		const { locations, events, number, errorText } = this.state;
+		const { locations, events, number, errorText, warnText } = this.state;
 		return (
 			<div className='App'>
 				<nav>
 					<div className='logo'>Meet-App</div>
 					<ul className='navigation-list'>
-						<li id='search-nav' className='navigation-list__item'></li>
+						<li id='search-nav' className='navigation-list__item'>
+							<WarningAlert text={warnText} />
+						</li>
 					</ul>
 				</nav>
 				<div className='container'>
+					<CitySearch locations={locations} updateEvents={this.updateEvents} />
 					<NumberOfEvents
 						errorText={errorText}
 						number={number}
 						updateNumber={this.updateNumber}
 					/>
-					<CitySearch locations={locations} updateEvents={this.updateEvents} />
 					<EventList number={number} events={events} />
 				</div>
 			</div>

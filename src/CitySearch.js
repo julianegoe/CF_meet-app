@@ -49,7 +49,7 @@ class CitySearch extends Component {
 		const { query, suggestions, showSuggestions } = this.state;
 		return (
 			<div className='CitySearch'>
-				{' '}
+				<InfoAlert text={this.state.infoText} />
 				<label htmlFor='city'>Search for Location: </label>
 				<input
 					type='text'
@@ -58,7 +58,6 @@ class CitySearch extends Component {
 					onChange={this.handleInput}
 					onFocus={this.handleFocus}
 				/>
-				<InfoAlert text={this.state.infoText} />
 				<ul
 					className='suggestions'
 					style={showSuggestions ? {} : { display: 'none' }}>

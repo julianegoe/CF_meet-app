@@ -5,7 +5,13 @@ export default class Event extends Component {
 		super(props);
 		this.state = {
 			buttonLabel: 'Show Details',
+			time: '',
 		};
+	}
+
+	componentDidMount() {
+		const time = new Date(this.props.event.start.dateTime).toLocaleString();
+		this.setState({ time: time });
 	}
 
 	handleClick = () => {
@@ -15,20 +21,16 @@ export default class Event extends Component {
 	};
 
 	render() {
-		const { buttonLabel } = this.state;
+		const { buttonLabel, time } = this.state;
 		return (
 			<div className='event'>
-				<h1>{this.props.event.summary}</h1>
-				<p className='date-time'>{this.props.event.start.dateTime}</p>
-				<span className='time-zone'>({this.props.event.start.timeZone})</span>
 				<p className='location'>{this.props.event.location}</p>
+				<h1>{this.props.event.summary}</h1>
+				<p className='date-time'>{time}</p>
 				{buttonLabel === 'Hide Details' ? (
 					<div className='event__Details'>
-						<h2 className='about-event'>About Event</h2>
+						<h3 className='about-event'>About Event</h3>
 						<p className='description'>{this.props.event.description}</p>
-						<a className='html-link' href={this.props.event.htmlLink}>
-							See Details on Google Calendar
-						</a>
 					</div>
 				) : null}
 
