@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/CF_meet-app/static/css/main.541961ca.chunk.css",
-    "main.js": "/CF_meet-app/static/js/main.8e074740.chunk.js",
-    "main.js.map": "/CF_meet-app/static/js/main.8e074740.chunk.js.map",
+    "main.css": "/CF_meet-app/static/css/main.830eb362.chunk.css",
+    "main.js": "/CF_meet-app/static/js/main.a4d813ab.chunk.js",
+    "main.js.map": "/CF_meet-app/static/js/main.a4d813ab.chunk.js.map",
     "runtime-main.js": "/CF_meet-app/static/js/runtime-main.77070d92.js",
     "runtime-main.js.map": "/CF_meet-app/static/js/runtime-main.77070d92.js.map",
     "static/js/2.1c22c69d.chunk.js": "/CF_meet-app/static/js/2.1c22c69d.chunk.js",
@@ -12,13 +12,13 @@
     "index.html": "/CF_meet-app/index.html",
     "service-worker.js": "/CF_meet-app/service-worker.js",
     "service-worker.js.map": "/CF_meet-app/service-worker.js.map",
-    "static/css/main.541961ca.chunk.css.map": "/CF_meet-app/static/css/main.541961ca.chunk.css.map",
+    "static/css/main.830eb362.chunk.css.map": "/CF_meet-app/static/css/main.830eb362.chunk.css.map",
     "static/js/2.1c22c69d.chunk.js.LICENSE.txt": "/CF_meet-app/static/js/2.1c22c69d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.77070d92.js",
     "static/js/2.1c22c69d.chunk.js",
-    "static/css/main.541961ca.chunk.css",
-    "static/js/main.8e074740.chunk.js"
+    "static/css/main.830eb362.chunk.css",
+    "static/js/main.a4d813ab.chunk.js"
   ]
 }
