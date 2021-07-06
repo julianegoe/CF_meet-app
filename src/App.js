@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import EventList from './EventList';
+import EventGenre from './EventGenre';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { WarningAlert } from './Alert';
 import { extractLocations, getEvents } from './api';
+import {
+	ScatterChart,
+	Scatter,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	ResponsiveContainer,
+} from 'recharts';
 
 export default class App extends Component {
 	constructor(props) {
@@ -14,7 +24,6 @@ export default class App extends Component {
 			locations: [],
 			number: 10,
 			errorText: '',
-			infoText: '',
 			warnText: '',
 		};
 	}
@@ -41,6 +50,19 @@ export default class App extends Component {
 		});
 	}
 
+	getData = () => {
+		const { locations, events } = this.state;
+		const data = locations.map((location) => {
+			const number = events.filter(
+				(event) => event.location === location
+			).length;
+			const city = location.split(', ').shift();
+			return { city, number };
+		});
+		console.log(data);
+		return data;
+	};
+
 	componentWillUnmount() {
 		this.mounted = false;
 		window.removeEventListener('keydown', () => {
@@ -56,20 +78,19 @@ export default class App extends Component {
 		});
 	}
 
-	updateEvents = async (location, number) => {
+	updateEvents = async (location) => {
 		// default values
-		number = number || this.state.number;
-		location = location || 'all';
+		console.log('update events');
+		const number = this.state.number;
+		location = location || '';
 
 		const allEvents = await getEvents();
-		if (location === 'all') {
-			this.setState({ events: allEvents, infoText: '' });
+		if (location === 'all' || number >= allEvents.length) {
+			this.setState({ events: allEvents });
 		} else {
-			const updatedEvents = allEvents
-				.filter((event) => {
-					return event.location === location;
-				})
-				.filter((item, index) => index < number);
+			const updatedEvents = allEvents.filter((event) => {
+				return event.location === location;
+			});
 			this.setState({ events: updatedEvents });
 		}
 	};
@@ -80,7 +101,7 @@ export default class App extends Component {
 		if (number < 0) {
 			validationText = "You can't enter negative numbers.";
 		} else if (number > this.state.events.length) {
-			validationText = `There are not ${number} events. Please enter a smaller number.`;
+			validationText = `There are not ${number} events. Please enter a number smaller than ${this.state.events.length}.`;
 		} else {
 			this.setState({ number: number });
 		}
@@ -106,6 +127,25 @@ export default class App extends Component {
 						number={number}
 						updateNumber={this.updateNumber}
 					/>
+					<div className='data-vis-wrapper'>
+						<EventGenre events={events} />
+						<ResponsiveContainer height={300}>
+							<ScatterChart
+								margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+								<CartesianGrid />
+								<XAxis type='category' dataKey='city' name='city' />
+								<YAxis
+									allowDecimals={false}
+									type='number'
+									dataKey='number'
+									name='number of events'
+								/>
+								<Tooltip />
+								<Scatter data={this.getData()} fill='#8884d8' />
+							</ScatterChart>
+						</ResponsiveContainer>
+					</div>
+
 					<EventList number={number} events={events} />
 				</div>
 			</div>

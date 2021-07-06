@@ -4,6 +4,10 @@
 	margin: 0;
 }
 
+h2 {
+	font-family: 'Anonymous Pro', monospace;
+}
+
 nav {
 	position: fixed;
 	display: flex;
@@ -34,10 +38,10 @@ nav .logo {
 	color: white;
 	letter-spacing: 4px;
 	padding: 8px;
+	font-family: 'Anonymous Pro', monospace;
 }
 
 .container {
-	display: grid;
 	padding-top: 60px;
 	margin-left: 30px;
 	margin-right: 30px;
@@ -96,9 +100,15 @@ input {
 
 .event {
 	background-color: #eee;
-	box-shadow: 1px 1px 5px grey;
+	border: 1px dashed black;
 	grid-column: 0 / span 1;
 	padding: 15px;
+}
+
+.date-time,
+.location {
+	margin-top: 7px;
+	margin-bottom: 7px;
 }
 
 .details-btn {
