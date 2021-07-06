@@ -12,7 +12,7 @@ describe('show/hide an event details', () => {
 			ignoreDefaultArgs: ['--disable-extensions'], // ignores default setting that causes timeout errors
 		};
 
-		browser = await puppeteer.launch();
+		browser = await puppeteer.launch(config);
 		page = await browser.newPage();
 		await page.goto('http://localhost:3000/');
 		await page.waitForSelector('.event');
@@ -51,7 +51,7 @@ describe('filter events by city', () => {
 			ignoreDefaultArgs: ['--disable-extensions'], // ignores default setting that causes timeout errors
 		};
 
-		browser = await puppeteer.launch();
+		browser = await puppeteer.launch(config);
 		page = await browser.newPage();
 		await page.goto('http://localhost:3000/');
 		await page.waitForSelector('.event');

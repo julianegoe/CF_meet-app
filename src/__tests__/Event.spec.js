@@ -10,18 +10,31 @@ describe('<Event /> component', () => {
 	});
 
 	it('renders the summary of the event', () => {
-		const titleElement = EventWrapper.find('h1');
+		const titleElement = EventWrapper.find('h2');
 		expect(titleElement.text()).toBe(mockData[0].summary);
 	});
 
 	it('renders the start time of the event', () => {
-		const timeElement = EventWrapper.find('.date-time');
-		expect(timeElement.text()).toBe(mockData[0].start.dateTime);
-	});
-
-	it('renders the timezone of the event', () => {
-		const timezoneElement = EventWrapper.find('.time-zone');
-		expect(timezoneElement.text()).toBe(`(${mockData[0].start.timeZone})`);
+		const optionsDate = {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		};
+		const optionsTime = {
+			hour: '2-digit',
+			minute: '2-digit',
+		};
+		const time = new Date(mockData[0].start.dateTime).toLocaleTimeString(
+			'en-US',
+			optionsTime
+		);
+		const date = new Date(mockData[0].start.dateTime).toLocaleDateString(
+			'en-US',
+			optionsDate
+		);
+		const datetimeElement = EventWrapper.find('.date-time');
+		expect(datetimeElement.text()).toBe(`${date} - ${time}`);
 	});
 
 	it('renders the location of the event', () => {
@@ -55,15 +68,6 @@ describe('<Event /> component', () => {
 		buttonElement.simulate('click');
 		expect(EventWrapper.find('.description').text()).toBe(
 			mockData[0].description
-		);
-	});
-
-	it('renders link to Google when clicking Show Details button', () => {
-		const buttonElement = EventWrapper.find('.details-btn');
-		expect(EventWrapper.find('.html-link').exists()).toEqual(false);
-		buttonElement.simulate('click');
-		expect(EventWrapper.find('.html-link').props().href).toBe(
-			mockData[0].htmlLink
 		);
 	});
 });

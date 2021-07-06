@@ -139,7 +139,7 @@ export default class App extends Component {
 									dataKey='number'
 									name='number of events'
 								/>
-								<Tooltip />
+								<Tooltip labelFormatter={() => ''} />
 								<Scatter data={this.getData()} fill='#D0ABA0' />
 							</ScatterChart>
 						</ResponsiveContainer>
