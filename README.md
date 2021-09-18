@@ -4,9 +4,24 @@
 
 This is a serverless PWA build with React that uses the Google Calendar API to display events for a given city users can sepcify.
 
+# Live Demo
+
+https://julianegoe.github.io/CF_meet-app/
+
+# Tech Stack
+
+ReactJS
+AWS Lambda
+Google OAuth
+
 ### Prerequisites
 
 You need to have node installed and a package manager like npm.
+
+### Authentication
+
+Users are authenticated with Google OAuth. To create your own OAuth Server you need to get credentials from Google Cloud console. This project uses AWS Lambda and Serverless, a serverless function hosted by cloud provider AWS.
+(e.g., AWS)
 
 ### Installing
 
